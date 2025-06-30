@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>{% block title %}Car Rental{% endblock %}</title>
+    {% block extra_style %}{% endblock %}
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .contact_bar {
+            text-align: center;
+            font-size: 14px;
+            padding: 6px;
+            font-weight: bold;
+        }
+
+        .nav_bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav_bar a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav_bar a:hover {
+            color: #ffc107;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #ccc;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="contact_bar">
+            Contact phone number: 0123 456 789
+        </div>
+        <div class="nav_bar">
+            <a href="{% url 'homepage' %}">Home</a> |
+            <a href="/Cars/all">All-Cars</a> |
+            <a href="/Van_Rental/details_van">Van-Rental</a> |
+            <a href="/Airport/details_airport">Airport</a> |
+            <a href="/Personal_Driver/details_personal_driver">Personal-Driver</a>
+            <a href="#">Login</a>
+            <a href="#">EN</a>
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        © 2025 Car Rental
+    </footer>
+</body>
+</html>

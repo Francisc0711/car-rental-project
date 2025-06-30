@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Acasă{% endblock %}
+
+{% block extra_style %}
+<style>
+    .hero-section {
+        background-image: url("{% static 'images/poza_ferari.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        padding: 60px 20px 80px 20px;
+        text-align: center;
+    }
+
+    .hero-content {
+        background: rgba(255,255,255,0.9);
+        padding: 40px;
+        border-radius: 12px;
+        max-width: 800px;
+        margin: 0 auto 40px auto;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .hero-content h1 {
+        font-size: 48px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .hero-content h2 {
+        font-size: 24px;
+        font-weight: 400;
+        color: #333;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        margin: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        background: #ffc107;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn:hover {
+        background: #e0a800;
+    }
+
+    .form-section {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .form-box {
+        background: white;
+        border: 2px solid black;
+        border-radius: 8px;
+        padding: 20px;
+        min-width: 220px;
+    }
+
+    .categories {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-top: 60px;
+    }
+
+    .category-card {
+        background: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 30px;
+        width: 250px;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .category-card:hover {
+        transform: scale(1.05);
+        background: #f8f8f8;
+    }
+
+    .popular-cars-section {
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .popular-cars-section h2 {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .popular-cars {
+        display: grid;
+        grid-template-columns: repeat(3, 300px);
+        gap: 30px;
+        justify-content: center;
+    }
+
+    .car-card {
+        background: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .car-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        flex-grow: 1;
+    }
+
+    .car-card span {
+        background: rgba(255,255,255,0.8);
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .car-card:hover {
+        background: #ffc107;
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Rent your car today</h1>
+        <h2>Choose from a wide range of vehicles</h2>
+        <div>
+            <button class="btn" onclick="window.location.href='/Cars/all'">See all cars</button>
+            <button class="btn" onclick="window.location.href='#'">Call now</button>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-box">
+            <label><strong>Pickup date:</strong></label><br>
+            <input type="date">
+        </div>
+        <div class="form-box">
+            <label><strong>Drop off date:</strong></label><br>
+            <input type="date">
+        </div>
+        <div class="form-box">
+            <label><strong>Pickup location:</strong></label><br>
+            <select><option>Airport</option><option>Town Center</option></select>
+        </div>
+        <div class="form-box">
+            <label><strong>Drop off location:</strong></label><br>
+            <select><option>Airport</option><option>Town Center</option></select>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <button class="btn" style="border: 2px solid black; background: white;" onclick="window.location.href='/Cars/all'">Search available cars</button>
+    </div>
+
+    <div class="categories">
+        <div class="category-card" onclick="window.location.href='/cars/category/confort/'">
+            <h3>Confort / Business</h3>
+            <p>See all confort cars</p>
+        </div>
+        <div class="category-card" onclick="window.location.href='/cars/category/lux/'">
+            <h3>Lux</h3>
+            <p>See all luxury cars</p>
+        </div>
+        <div class="category-card" onclick="window.location.href='/cars/category/sport/'">
+            <h3>Sport</h3>
+            <p>See all sports cars</p>
+        </div>
+    </div>
+</div>
+
+<div class="popular-cars-section">
+    <h2>Most searched cars</h2>
+    <div class="popular-cars">
+        <a href="{% url 'car_details' 'urus' %}" class="car-card">
+            <img src="{% static 'images/urus.jpg' %}"><span>Lamborghini Urus</span>
+        </a>
+        <a href="{% url 'car_details' 'aventador' %}" class="car-card">
+            <img src="{% static 'images/aventador.jpg' %}"><span>Lamborghini Aventador</span>
+        </a>
+        <a href="{% url 'car_details' '488-spyder' %}" class="car-card">
+            <img src="{% static 'images/488-spyder.jpg' %}"><span>Ferrari 488 Spyder</span>
+        </a>
+        <a href="{% url 'car_details' 'phantom' %}" class="car-card">
+            <img src="{% static 'images/phantom.jpg' %}"><span>Rolls Royce Phantom</span>
+        </a>
+        <a href="{% url 'car_details' 'cullinan' %}" class="car-card">
+            <img src="{% static 'images/cullinan.jpg' %}"><span>Rolls Royce Cullinan</span>
+        </a>
+        <a href="{% url 'car_details' 'g63' %}" class="car-card">
+            <img src="{% static 'images/g63.jpg' %}"><span>Mercedes G63 Brabus</span>
+        </a>
+        <a href="{% url 'car_details' 's-class' %}" class="car-card">
+            <img src="{% static 'images/s-class.jpg' %}"><span>Mercedes S-Class</span>
+        </a>
+        <a href="{% url 'car_details' 'maybach' %}" class="car-card">
+            <img src="{% static 'images/maybach.jpg' %}"><span>Mercedes Maybach</span>
+        </a>
+        <a href="{% url 'car_details' 'bmw-7' %}" class="car-card">
+            <img src="{% static 'images/bmw-7.jpg' %}"><span>BMW Seria 7</span>
+        </a>
+    </div>
+</div>
+{% endblock %}
