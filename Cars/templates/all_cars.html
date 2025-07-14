@@ -1,7 +1,208 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}All Cars{% endblock %}
+{% block extra_style %}
+<style>
+    .hero-section {
+        background-image: url("{% static 'images/poza_ferari.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        padding: 60px 20px 80px 20px;
+        text-align: center;
+    }
 
+    .hero-content {
+        background: rgba(255,255,255,0.9);
+        padding: 40px;
+        border-radius: 12px;
+        max-width: 800px;
+        margin: 0 auto 40px auto;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .hero-content h1 {
+        font-size: 48px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .hero-content h2 {
+        font-size: 24px;
+        font-weight: 400;
+        color: #333;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        margin: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        background: #ffc107;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn:hover {
+        background: #e0a800;
+    }
+
+    .form-section {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .form-box {
+        background: white;
+        border: 2px solid black;
+        border-radius: 8px;
+        padding: 20px;
+        min-width: 220px;
+    }
+
+    .categories {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-top: 60px;
+    }
+
+    .category-card {
+        background: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 30px;
+        width: 250px;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .category-card:hover {
+        transform: scale(1.05);
+        background: #f8f8f8;
+    }
+
+    .popular-cars-section {
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .popular-cars-section h2 {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .popular-cars {
+        display: grid;
+        grid-template-columns: repeat(3, 300px);
+        gap: 30px;
+        justify-content: center;
+    }
+
+   .car-card {
+    background: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-decoration: none;
+
+    /* pentru animatie */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.car-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-grow: 1;
+}
+
+.car-card span {
+    background: rgba(255,255,255,0.8);
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    padding: 10px;
+}
+
+.car-card:hover {
+    background: #ffc107;
+    transform: translateY(-5px);
+}
+
+.car-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+</style>
+{% endblock extra_style %}
 {% block content %}
     <h1>All Cars</h1>
-    <p>This page will display all available cars for rent.</p>
+    <h3>This page will display all available cars for rent.</h3>
+<div class="popular-cars-section">
+    <h2>Check all available cars</h2>
+    <div class="popular-cars">
+        <a href="{% url 'car_details' 'urus' %}" class="car-card">
+            <img src="{% static 'images/urus.jpg' %}"><span>Lamborghini Urus</span>
+        </a>
+        <a href="{% url 'car_details' 'aventador' %}" class="car-card">
+            <img src="{% static 'images/aventador.jpg' %}"><span>Lamborghini Aventador</span>
+        </a>
+        <a href="{% url 'car_details' '488-spyder' %}" class="car-card">
+            <img src="{% static 'images/488-spyder.jpg' %}"><span>Ferrari 488 Spyder</span>
+        </a>
+        <a href="{% url 'car_details' 'phantom' %}" class="car-card">
+            <img src="{% static 'images/phantom.jpg' %}"><span>Rolls Royce Phantom</span>
+        </a>
+        <a href="{% url 'car_details' 'cullinan' %}" class="car-card">
+            <img src="{% static 'images/cullinan.jpg' %}"><span>Rolls Royce Cullinan</span>
+        </a>
+        <a href="{% url 'car_details' 'g63' %}" class="car-card">
+            <img src="{% static 'images/g63.jpg' %}"><span>Mercedes G63 Brabus</span>
+        </a>
+        <a href="{% url 'car_details' 's-class' %}" class="car-card">
+            <img src="{% static 'images/s-class.jpg' %}"><span>Mercedes S-Class</span>
+        </a>
+        <a href="{% url 'car_details' 'maybach' %}" class="car-card">
+            <img src="{% static 'images/maybach.jpg' %}"><span>Mercedes Maybach</span>
+        </a>
+        <a href="{% url 'car_details' 'bmw-7' %}" class="car-card">
+            <img src="{% static 'images/bmw-7.jpg' %}"><span>BMW Seria 7</span>
+        </a>
+    </div>
+</div>
+    <script> /* scritpul acesta de java script face animatiile de la butoanele pentru masini + ultimele 3 linii din CSS card */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.car-card').forEach(card => {
+            observer.observe(card);
+        });
+
+    </script>
 {% endblock %}

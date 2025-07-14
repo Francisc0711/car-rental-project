@@ -112,22 +112,21 @@
         background: white;
         border: 2px solid black;
         border-radius: 10px;
-        width: 300px;
-        height: 300px;
-        display: flex;
-        flex-direction: column;
         overflow: hidden;
         text-decoration: none;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .car-card img {
         width: 100%;
-        height: 100%;
+        height: 250px;
         object-fit: cover;
-        flex-grow: 1;
     }
 
     .car-card span {
+        display: block;
         background: rgba(255,255,255,0.8);
         font-size: 18px;
         font-weight: bold;
@@ -139,6 +138,86 @@
     .car-card:hover {
         background: #ffc107;
         transform: translateY(-5px);
+    }
+
+    .car-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .driver-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 80px auto;
+        padding: 0 20px;
+        gap: 40px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .driver-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .driver-text {
+        flex: 1;
+    }
+
+    .driver-text h1 {
+        font-size: 36px;
+        line-height: 1.3;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .driver-text p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .driver-buttons .btn {
+        margin-right: 15px;
+    }
+
+    .call-btn {
+        background-color: #ffc107;
+    }
+
+    .call-btn:hover {
+        background-color: #e0a800;
+    }
+
+    .details-btn {
+        background-color: #f0f0f0;
+    }
+
+    .details-btn:hover {
+        background-color: #ddd;
+    }
+
+    .driver-image {
+        flex: 1;
+    }
+
+    .driver-image img {
+        width: 100%;
+        border-radius: 12px;
+        object-fit: cover;
+    }
+
+    @media (max-width: 900px) {
+        .driver-section {
+            flex-direction: column;
+            text-align: center;
+        }
+        .driver-buttons {
+            justify-content: center;
+        }
     }
 </style>
 {% endblock %}
@@ -157,11 +236,11 @@
     <div class="form-section">
         <div class="form-box">
             <label><strong>Pickup date:</strong></label><br>
-            <input type="date">
+            <input type="date" id="pickup_date">
         </div>
         <div class="form-box">
             <label><strong>Drop off date:</strong></label><br>
-            <input type="date">
+            <input type="date" id="return_date">
         </div>
         <div class="form-box">
             <label><strong>Pickup location:</strong></label><br>
@@ -196,33 +275,63 @@
 <div class="popular-cars-section">
     <h2>Most searched cars</h2>
     <div class="popular-cars">
-        <a href="{% url 'car_details' 'urus' %}" class="car-card">
-            <img src="{% static 'images/urus.jpg' %}"><span>Lamborghini Urus</span>
-        </a>
-        <a href="{% url 'car_details' 'aventador' %}" class="car-card">
-            <img src="{% static 'images/aventador.jpg' %}"><span>Lamborghini Aventador</span>
-        </a>
-        <a href="{% url 'car_details' '488-spyder' %}" class="car-card">
-            <img src="{% static 'images/488-spyder.jpg' %}"><span>Ferrari 488 Spyder</span>
-        </a>
-        <a href="{% url 'car_details' 'phantom' %}" class="car-card">
-            <img src="{% static 'images/phantom.jpg' %}"><span>Rolls Royce Phantom</span>
-        </a>
-        <a href="{% url 'car_details' 'cullinan' %}" class="car-card">
-            <img src="{% static 'images/cullinan.jpg' %}"><span>Rolls Royce Cullinan</span>
-        </a>
-        <a href="{% url 'car_details' 'g63' %}" class="car-card">
-            <img src="{% static 'images/g63.jpg' %}"><span>Mercedes G63 Brabus</span>
-        </a>
-        <a href="{% url 'car_details' 's-class' %}" class="car-card">
-            <img src="{% static 'images/s-class.jpg' %}"><span>Mercedes S-Class</span>
-        </a>
-        <a href="{% url 'car_details' 'maybach' %}" class="car-card">
-            <img src="{% static 'images/maybach.jpg' %}"><span>Mercedes Maybach</span>
-        </a>
-        <a href="{% url 'car_details' 'bmw-7' %}" class="car-card">
-            <img src="{% static 'images/bmw-7.jpg' %}"><span>BMW Seria 7</span>
-        </a>
+        <a href="{% url 'car_details' 'urus' %}" class="car-card"><img src="{% static 'images/urus.jpg' %}"><span>Lamborghini Urus</span></a>
+        <a href="{% url 'car_details' 'aventador' %}" class="car-card"><img src="{% static 'images/aventador.jpg' %}"><span>Lamborghini Aventador</span></a>
+        <a href="{% url 'car_details' '488-spyder' %}" class="car-card"><img src="{% static 'images/488-spyder.jpg' %}"><span>Ferrari 488 Spyder</span></a>
+        <a href="{% url 'car_details' 'phantom' %}" class="car-card"><img src="{% static 'images/phantom.jpg' %}"><span>Rolls Royce Phantom</span></a>
+        <a href="{% url 'car_details' 'cullinan' %}" class="car-card"><img src="{% static 'images/cullinan.jpg' %}"><span>Rolls Royce Cullinan</span></a>
+        <a href="{% url 'car_details' 'g63' %}" class="car-card"><img src="{% static 'images/g63.jpg' %}"><span>Mercedes G63 Brabus</span></a>
+        <a href="{% url 'car_details' 's-class' %}" class="car-card"><img src="{% static 'images/s-class.jpg' %}"><span>Mercedes S-Class</span></a>
+        <a href="{% url 'car_details' 'maybach' %}" class="car-card"><img src="{% static 'images/maybach.jpg' %}"><span>Mercedes Maybach</span></a>
+        <a href="{% url 'car_details' 'bmw-7' %}" class="car-card"><img src="{% static 'images/bmw-7.jpg' %}"><span>BMW Seria 7</span></a>
     </div>
 </div>
+
+<div class="driver-section">
+    <div class="driver-text">
+        <h1>Rent a car with driver<br>or minivan with driver<br>anytime and anywhere you need</h1>
+        <p>Whether it is for an event, a business meeting or a night out in the city, we provide you with a personal driver and a car whenever you need it. Let us handle the transportation problems.</p>
+        <div class="driver-buttons">
+            <button class="btn details-btn" onclick="window.location.href= 'personal_driver_details'">Details<button>
+
+            <button class="btn details-btn">Details</button>
+        </div>
+    </div>
+    <div class="driver-image">
+        <img src="{% static 'images/personal_driver_image.jpg' %}" alt="Driver with car">
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.car-card, .driver-section');
+    function checkVisible() {
+        const triggerBottom = window.innerHeight * 0.9;
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top < triggerBottom && rect.bottom > 0) {
+                card.classList.add('visible');
+            } else {
+                card.classList.remove('visible');
+            }
+        });
+    }
+    window.addEventListener('scroll', checkVisible);
+    checkVisible();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const pickupDateInput = document.getElementById('pickup_date');
+    const returnDateInput = document.getElementById('return_date');
+    pickupDateInput.addEventListener('change', function() {
+        const pickupDate = new Date(this.value);
+        pickupDate.setDate(pickupDate.getDate() + 1);
+        const minReturnDate = pickupDate.toISOString().split('T')[0];
+        returnDateInput.min = minReturnDate;
+        if (returnDateInput.value < minReturnDate) {
+            returnDateInput.value = "";
+        }
+    });
+});
+</script>
 {% endblock %}

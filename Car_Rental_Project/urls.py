@@ -26,6 +26,5 @@ urlpatterns = [
 	path('Airport/', include('Airport.urls')),
 	path('Van_Rental/', include('Van_Rental.urls')),
 	path('Personal_Driver/', include('Personal_Driver.urls')),
-    path('', include('Cars.urls')),
 
 ]
