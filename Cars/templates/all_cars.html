@@ -157,37 +157,15 @@
 {% block content %}
     <h1>All Cars</h1>
     <h3>This page will display all available cars for rent.</h3>
-<div class="popular-cars-section">
-    <h2>Check all available cars</h2>
-    <div class="popular-cars">
-        <a href="{% url 'car_details' 'urus' %}" class="car-card">
-            <img src="{% static 'images/urus.jpg' %}"><span>Lamborghini Urus</span>
-        </a>
-        <a href="{% url 'car_details' 'aventador' %}" class="car-card">
-            <img src="{% static 'images/aventador.jpg' %}"><span>Lamborghini Aventador</span>
-        </a>
-        <a href="{% url 'car_details' '488-spyder' %}" class="car-card">
-            <img src="{% static 'images/488-spyder.jpg' %}"><span>Ferrari 488 Spyder</span>
-        </a>
-        <a href="{% url 'car_details' 'phantom' %}" class="car-card">
-            <img src="{% static 'images/phantom.jpg' %}"><span>Rolls Royce Phantom</span>
-        </a>
-        <a href="{% url 'car_details' 'cullinan' %}" class="car-card">
-            <img src="{% static 'images/cullinan.jpg' %}"><span>Rolls Royce Cullinan</span>
-        </a>
-        <a href="{% url 'car_details' 'g63' %}" class="car-card">
-            <img src="{% static 'images/g63.jpg' %}"><span>Mercedes G63 Brabus</span>
-        </a>
-        <a href="{% url 'car_details' 's-class' %}" class="car-card">
-            <img src="{% static 'images/s-class.jpg' %}"><span>Mercedes S-Class</span>
-        </a>
-        <a href="{% url 'car_details' 'maybach' %}" class="car-card">
-            <img src="{% static 'images/maybach.jpg' %}"><span>Mercedes Maybach</span>
-        </a>
-        <a href="{% url 'car_details' 'bmw-7' %}" class="car-card">
-            <img src="{% static 'images/bmw-7.jpg' %}"><span>BMW Seria 7</span>
-        </a>
-    </div>
+<div class="popular-cars">
+    
+    {% for car in cars %}
+    <a href="{% url 'car_details' car.slug %}" class="car-card">
+        <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" width="300">
+        <span>{{ car.brand }} {{ car.model }}</span>
+    </a>
+    {% endfor %}
+</div> 
 </div>
     <script> /* scritpul acesta de java script face animatiile de la butoanele pentru masini + ultimele 3 linii din CSS card */
         const observer = new IntersectionObserver((entries) => {

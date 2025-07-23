@@ -257,23 +257,22 @@
     </div>
 
     <div class="categories">
-        <div class="category-card" onclick="window.location.href='/cars/category/confort/'">
+        <div class="category-card" onclick="window.location.href='/Cars/car_category/confort/'">
             <h3>Confort / Business</h3>
             <p>See all confort cars</p>
         </div>
-        <div class="category-card" onclick="window.location.href='/cars/category/lux/'">
+        <div class="category-card" onclick="window.location.href='/Cars/car_category/lux/'">
             <h3>Lux</h3>
             <p>See all luxury cars</p>
         </div>
-        <div class="category-card" onclick="window.location.href='/cars/category/sport/'">
+        <div class="category-card" onclick="window.location.href='/Cars/car_category/sport/'">
             <h3>Sport</h3>
             <p>See all sports cars</p>
         </div>
     </div>
 </div>
-
-<div class="popular-cars-section">
-    <h2>Most searched cars</h2>
+ {% comment %} <div class="popular-cars-section">
+    
     <div class="popular-cars">
         <a href="{% url 'car_details' 'urus' %}" class="car-card"><img src="{% static 'images/urus.jpg' %}"><span>Lamborghini Urus</span></a>
         <a href="{% url 'car_details' 'aventador' %}" class="car-card"><img src="{% static 'images/aventador.jpg' %}"><span>Lamborghini Aventador</span></a>
@@ -285,14 +284,32 @@
         <a href="{% url 'car_details' 'maybach' %}" class="car-card"><img src="{% static 'images/maybach.jpg' %}"><span>Mercedes Maybach</span></a>
         <a href="{% url 'car_details' 'bmw-7' %}" class="car-card"><img src="{% static 'images/bmw-7.jpg' %}"><span>BMW Seria 7</span></a>
     </div>
-</div>
+</div>  {% endcomment %}
+
+<h2 style="
+    margin: 60px auto 40px auto;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 600;
+    letter-spacing: 1px;">
+    Most searched cars
+</h2>
+<div class="popular-cars">
+    
+    {% for car in cars %}
+    <a href="{% url 'car_details' car.slug %}" class="car-card">
+        <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" width="300">
+        <span>{{ car.brand }} {{ car.model }}</span>
+    </a>
+    {% endfor %}
+</div> 
 
 <div class="driver-section">
     <div class="driver-text">
         <h1>Rent a car with driver<br>or minivan with driver<br>anytime and anywhere you need</h1>
         <p>Whether it is for an event, a business meeting or a night out in the city, we provide you with a personal driver and a car whenever you need it. Let us handle the transportation problems.</p>
         <div class="driver-buttons">
-            <button class="btn details-btn" onclick="window.location.href= 'personal_driver_details'">Details<button>
+            <button class="btn details-btn" onclick="window.location.href= 'Personal_Driver/personal_driver_details'">Details<button>
 
             <button class="btn details-btn">Details</button>
         </div>
