@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Înregistrare cont</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Creează cont</button>
+</form>
+
+<p>Ai deja cont? <a href="{% url 'login' %}">Loghează-te aici</a></p>
+{% endblock %}

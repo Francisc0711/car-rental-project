@@ -233,28 +233,35 @@
         </div>
     </div>
 
-    <div class="form-section">
+    <form method="get" action="" class="form-section">
         <div class="form-box">
             <label><strong>Pickup date:</strong></label><br>
-            <input type="date" id="pickup_date">
+            <input type="date" name="pickup_date" id="pickup_date" required>
         </div>
         <div class="form-box">
             <label><strong>Drop off date:</strong></label><br>
-            <input type="date" id="return_date">
+            <input type="date" name="dropoff_date" id="return_date" required>
         </div>
         <div class="form-box">
             <label><strong>Pickup location:</strong></label><br>
-            <select><option>Airport</option><option>Town Center</option></select>
+            <select name="pickup_location">
+                <option>Airport</option>
+                <option>Town Center</option>
+            </select>
         </div>
         <div class="form-box">
             <label><strong>Drop off location:</strong></label><br>
-            <select><option>Airport</option><option>Town Center</option></select>
+            <select name="dropoff_location">
+                <option>Airport</option>
+                <option>Town Center</option>
+            </select>
         </div>
-    </div>
-
-    <div style="margin-top: 30px;">
-        <button class="btn" style="border: 2px solid black; background: white;" onclick="window.location.href='/Cars/all'">Search available cars</button>
-    </div>
+        <div style="margin-top: 30px; width:100%; text-align:center;">
+            <button type="submit" class="btn" style="border: 2px solid black; background: white;">
+                Search available cars
+            </button>
+        </div>
+    </form>
 
     <div class="categories">
         <div class="category-card" onclick="window.location.href='/Cars/car_category/confort/'">
@@ -309,9 +316,7 @@
         <h1>Rent a car with driver<br>or minivan with driver<br>anytime and anywhere you need</h1>
         <p>Whether it is for an event, a business meeting or a night out in the city, we provide you with a personal driver and a car whenever you need it. Let us handle the transportation problems.</p>
         <div class="driver-buttons">
-            <button class="btn details-btn" onclick="window.location.href= 'Personal_Driver/personal_driver_details'">Details<button>
-
-            <button class="btn details-btn">Details</button>
+            <button class="btn details-btn" onclick="window.location.href='Personal_Driver/personal_driver_details'">Details</button>
         </div>
     </div>
     <div class="driver-image">
