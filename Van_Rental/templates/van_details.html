@@ -1,7 +1,95 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Van Details{% endblock %}
 
+{% block extra_style %}
+<style>
+/* Layout principal */
+.service-section{
+  display:flex;
+  align-items:center;
+  max-width:1200px;
+  margin:80px auto;
+  padding:0 20px;
+  gap:40px;
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .6s ease, transform .6s ease;
+  will-change: opacity, transform;
+}
+.service-section.visible{ opacity:1; transform:none; }
+
+/* Textul – jumătate din spațiu */
+.service-text{
+  flex:1;
+}
+.service-text h1{
+  font-size:36px;
+  line-height:1.3;
+  margin-bottom:20px;
+  font-weight:700;
+}
+.service-text p{
+  font-size:18px;
+  color:#333;
+  margin:0;
+}
+
+/* Imaginea – jumătate din spațiu */
+.service-image{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.service-image img{
+  width:100%;
+  height:auto;
+  max-width:100%;
+  border-radius:12px;
+  display:block;
+}
+
+/* Responsive pentru ecrane mici */
+@media (max-width: 900px){
+  .service-section{
+    flex-direction:column;
+    text-align:center;
+  }
+  .service-text h1{ font-size:28px; }
+  .service-text p{ font-size:16px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .service-section, .service-section.visible{
+    transition:none !important;
+    transform:none !important;
+    opacity:1 !important;
+  }
+}
+</style>
+{% endblock %}
+
 {% block content %}
-    <h1>Van Details</h1>
-    <p>This page will display details about a specific van.</p>
+  <div class="service-section" id="vanSection">
+    <div class="service-text">
+      <h1>Van Rental</h1>
+      <p>Whether you’re planning a family trip, a corporate outing, or simply need extra space for luggage, our van rental service offers comfort, safety, and flexibility. Our modern vans are well-maintained, spacious, and equipped with the latest features to ensure a pleasant journey for every passenger. Enjoy competitive rates, easy booking, and a smooth driving experience, no matter your destination. For bookings and availability, please contact us via phone or the request form.</p>
+    </div>
+    <div class="service-image">
+      <img src="{% static 'images/van_image.jpg' %}" alt="Van rental">
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var sec = document.getElementById('vanSection');
+      if (!sec) return;
+      sec.classList.remove('visible');
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          sec.classList.add('visible');
+        });
+      });
+    });
+  </script>
 {% endblock %}

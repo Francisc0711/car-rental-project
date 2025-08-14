@@ -1,7 +1,90 @@
 {% extends "base.html" %}
-{% block title %}Personal Driver Details{% endblock %}
+{% load static %}
+{% block title %}Personal Driver{% endblock %}
+
+{% block extra_style %}
+<style>
+/* Layout principal */
+.service-section{
+  display:flex;
+  align-items:center;
+  max-width:1200px;
+  margin:80px auto;
+  padding:0 20px;
+  gap:40px;
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .6s ease, transform .6s ease;
+  will-change: opacity, transform;
+}
+.service-section.visible{ opacity:1; transform:none; }
+
+/* Text – 50% */
+.service-text{ flex:1; }
+.service-text h1{
+  font-size:36px;
+  line-height:1.3;
+  margin-bottom:20px;
+  font-weight:700;
+}
+.service-text p{
+  font-size:18px;
+  color:#333;
+  margin:0;
+}
+
+/* Imagine – 50% */
+.service-image{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.service-image img{
+  width:100%;
+  height:auto;
+  max-width:100%;
+  border-radius:12px;
+  display:block;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .service-section{ flex-direction:column; text-align:center; }
+  .service-text h1{ font-size:28px; }
+  .service-text p{ font-size:16px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .service-section, .service-section.visible{
+    transition:none !important;
+    transform:none !important;
+    opacity:1 !important;
+  }
+}
+</style>
+{% endblock %}
 
 {% block content %}
-    <h1>Personal Driver Details</h1>
-    <p>This page will display details about a specific personal driver.</p>
+  <div class="service-section" id="driverSection">
+    <div class="service-text">
+      <h1>Personal Driver</h1>
+      <p>Experience the convenience of having a personal driver at your service, anytime and anywhere you need. Whether for business meetings, special events, or a relaxed day in the city, our professional chauffeurs deliver comfort, safety, and style. Focus on your plans while we handle the traffic, parking, and route planning—so every trip feels effortless.</p>
+    </div>
+    <div class="service-image">
+      <img src="{% static 'images/personal_driver_image.jpg' %}" alt="Personal driver service">
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var sec = document.getElementById('driverSection');
+      if (!sec) return;
+      sec.classList.remove('visible');
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          sec.classList.add('visible');
+        });
+      });
+    });
+  </script>
 {% endblock %}

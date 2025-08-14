@@ -146,9 +146,109 @@
 
     {% block content %}{% endblock %}
 
-    <footer>
-        © 2025 Car Rental
-    </footer>
+<footer class="footer" id="siteFooter">
+  <div class="footer-container">
+    
+    <div class="footer-column">
+      <h2>Car Rental Co.</h2>
+      <p>Premium cars, exceptional service – whenever you need them.</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Contact</h3>
+      <p>📞 +40 712 345 678</p>
+      <p>📧 contact@carrental.com</p>
+      <p>📍 București, România</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Opening Hours</h3>
+      <p>Mon–Fri: 08:00 – 20:00</p>
+      <p>Sat: 09:00 – 18:00</p>
+      <p>Sun: Closed</p>
+    </div>
+
+  </div>
+
+  <hr>
+  <p class="footer-copy">© 2025 Car Rental Co. All rights reserved.</p>
+</footer>
+
+<style>
+.footer {
+  background: #e0e0e0; /* gri mediu */
+  color: #222;
+  padding: 40px 20px;
+  margin-top: 50px;
+  border-top: 1px solid #ccc;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.footer.visible {
+  opacity: 1;
+  transform: none;
+}
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+.footer-column {
+  flex: 1;
+  min-width: 220px;
+}
+.footer-column h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #111;
+}
+.footer-column h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #333;
+}
+.footer-column p {
+  color: #444;
+  font-size: 14px;
+  margin: 5px 0;
+}
+.footer hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+.footer-copy {
+  text-align: center;
+  color: #555;
+  font-size: 13px;
+}
+/* Responsive */
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var footer = document.getElementById('siteFooter');
+  if (!footer) return;
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      footer.classList.add('visible');
+    });
+  });
+});
+</script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
